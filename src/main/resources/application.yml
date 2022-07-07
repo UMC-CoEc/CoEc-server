@@ -1,0 +1,36 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    encoding:
+      charset: utf-8
+      enabled: true
+
+spring:
+  profiles:
+    active: local
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://umc-coec:asia-northeast3:coec-db:3306/coec?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root
+    password: umccoec
+
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
+  devtools:
+    restart:
+      enabled: true
+    liveload:
+      enabled: true
+
+  security:
+    user:
+      name: coec
+      password: 1234
