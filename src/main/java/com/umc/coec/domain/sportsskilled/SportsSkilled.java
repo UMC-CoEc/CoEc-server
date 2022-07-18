@@ -27,18 +27,16 @@ public class SportsSkilled {
 
     @ManyToOne
     @JoinColumn(name = "sportsId")
-    private long sportsId;
+    private Sports sports;
 
     @ManyToOne
     @JoinColumn(name = "userId")
-    private long userId;
+    private User user;
 
-    @Column(nullable = false)
     private int year;
-
-    @Column(nullable = false)
     private int month;
 
+    @Column(nullable = false)
     private int skilled;
 
     @Column(length = 1000)
