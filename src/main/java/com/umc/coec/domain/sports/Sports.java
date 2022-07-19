@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Comment;
+import org.springframework.web.bind.annotation.CookieValue;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -17,17 +19,19 @@ import java.time.LocalDateTime;
 public class Sports {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private long sportsId;
+    private Long id;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private Status status=Status.ACTIVE;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+    @Comment("운동 종목")
     @Column(nullable = false)
-    private String sportsName;
+    private String name;
 
+    @Comment("false: 개인종목, true: 단체종목")
     @Column(nullable = false)
-    private Boolean isTeamSports;
+    private Boolean isTeamSports=false;
 }

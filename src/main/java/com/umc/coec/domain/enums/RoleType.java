@@ -1,5 +1,5 @@
 package com.umc.coec.domain.enums;
 
-public enum Role {
+public enum RoleType {
     USER, ADMIN
 }

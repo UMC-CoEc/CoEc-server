@@ -1,4 +1,4 @@
-package com.umc.coec.domain.sportsskilled;
+package com.umc.coec.domain.skilled;
 
 import com.umc.coec.domain.enums.Status;
 import com.umc.coec.domain.sports.Sports;
@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Comment;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -16,31 +17,33 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @Entity
-public class SportsSkilled {
+public class Skilled {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private long sportsSkilledId;
+    private Long id;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private Status status=Status.ACTIVE;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "sportsId")
     private Sports sports;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "userId")
     private User user;
 
     private int year;
     private int month;
 
+    @Comment("점수 0~10")
     @Column(nullable = false)
     private int skilled;
 
+    @Comment( "경력, 수상이력 등 종목 관련 자기소개")
     @Column(length = 1000)
     private String experience;
 }

@@ -1,11 +1,13 @@
-package com.umc.coec.domain.chatroom;
+package com.umc.coec.domain.chat_room;
 
 import com.umc.coec.domain.enums.Status;
+import com.umc.coec.domain.post.Post;
 import com.umc.coec.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Comment;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -15,32 +17,41 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @Entity
+@Table( //등록자 - 신청자 사이에 채팅방은 하나만 가능
+            uniqueConstraints = {
+                        @UniqueConstraint(
+                                    name="interest_uk",
+                                    columnNames = {"postUserId","joinUserId"}
+                        )
+            }
+)
 public class ChatRoom {
 
       @GeneratedValue(strategy = GenerationType.IDENTITY)
       @Id
-      private long id;
+      private Long id;
 
       private LocalDateTime createdAt;
       private LocalDateTime updatedAt;
 
       @Enumerated(EnumType.STRING)
-      private Status postUserStatus;
+      private Status postUserStatus=Status.ACTIVE;
 
       @Enumerated(EnumType.STRING)
-      private String joinUserStatus;
+      private Status joinUserStatus=Status.ACTIVE;
 
-
+      @Comment("글 등록자")
       @JoinColumn(name="postUserId")
-      @ManyToOne
+      @ManyToOne(fetch = FetchType.EAGER)
       private User postUser;
 
+      @Comment("신청자")
       @JoinColumn(name="joinUserId")
-      @ManyToOne
+      @ManyToOne(fetch = FetchType.EAGER)
       private User joinUser;
 
       @JoinColumn(name="postId")
-      @ManyToOne
+      @ManyToOne(fetch = FetchType.LAZY)
       private Post post;
 
 }
