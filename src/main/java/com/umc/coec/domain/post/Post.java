@@ -66,26 +66,26 @@ public class Post {
     private Gender genderWanted;
 
     @OneToMany
-    @JoinColumn(name = postJoinId)
+    @JoinColumn(name = postId)
     private List<PostJoin> postJoins = new ArrayList<>();
 
     @OneToMany
-    @JoinColumn(name = purposeId)
+    @JoinColumn(name = postId)
     private List<Purpose> purposes = new ArrayList<>();
 
     @OneToMany
-    @JoinColumn(name = sportsTimeId)
+    @JoinColumn(name = postId)
     private List<SportsTime> sportsTimes = new ArrayList<>();
 
     @OneToMany
-    @JoinColumn(name = interestId)
+    @JoinColumn(name = postId)
     private List<Interest> interests = new ArrayList<>();
 
     @OneToMany
-    @JoinColumn(name = chatRoomId)
+    @JoinColumn(name = postId)
     private List<ChatRoom> chatRooms = new ArrayList<>();
 
     @OneToMany
-    @JoinColumn(name = reportId)
+    @JoinColumn(name = postId)
     private List<Report> reports = new ArrayList<>();
 }
