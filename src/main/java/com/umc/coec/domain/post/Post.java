@@ -3,6 +3,8 @@ package com.umc.coec.domain.post;
 import com.umc.coec.domain.enums.Division;
 import com.umc.coec.domain.enums.Gender;
 import com.umc.coec.domain.enums.Status;
+import com.umc.coec.domain.location.Location;
+import com.umc.coec.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,6 +13,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 @Data
 @AllArgsConstructor
@@ -31,22 +34,22 @@ public class Post {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
-    private long userId;
+    private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sportsId")
-    private long sportsId;
+    private Sports sports;
 
     @Column(nullable = false)
     private LocalDate startDate;
 
     private LocalDate endDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "locationId")
-    private long locationId;
+    private Location location;
 
     @Column(nullable = false)
     private int memberCount;
@@ -61,4 +64,28 @@ public class Post {
 
     @Enumerated(EnumType.STRING)
     private Gender genderWanted;
+
+    @OneToMany
+    @JoinColumn(name = postJoinId)
+    private List<PostJoin> postJoins = new ArrayList<>();
+
+    @OneToMany
+    @JoinColumn(name = purposeId)
+    private List<Purpose> purposes = new ArrayList<>();
+
+    @OneToMany
+    @JoinColumn(name = sportsTimeId)
+    private List<SportsTime> sportsTimes = new ArrayList<>();
+
+    @OneToMany
+    @JoinColumn(name = interestId)
+    private List<Interest> interests = new ArrayList<>();
+
+    @OneToMany
+    @JoinColumn(name = chatRoomId)
+    private List<ChatRoom> chatRooms = new ArrayList<>();
+
+    @OneToMany
+    @JoinColumn(name = reportId)
+    private List<Report> reports = new ArrayList<>();
 }
