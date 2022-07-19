@@ -62,5 +62,5 @@ public class User {
     private Boolean isCredentialExpired;
     private Boolean isEnabled;
     private Boolean isVerified;
-    
+
 }
