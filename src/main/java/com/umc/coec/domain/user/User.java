@@ -62,11 +62,5 @@ public class User {
     private Boolean isCredentialExpired;
     private Boolean isEnabled;
     private Boolean isVerified;
-
-//유저의 주 활동지역 ? 같은 부분 사용할때 쓰려고 둔 것 같은데  등록 글에서 locationId를 사용하면 여기서도 사용할 필요가 있을까? 논의 필요할 듯
-//    private long locationId;
-
-
-
-
+    
 }

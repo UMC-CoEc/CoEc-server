@@ -1,6 +1,8 @@
 package com.umc.coec.domain.sportsskilled;
 
 import com.umc.coec.domain.enums.Status;
+import com.umc.coec.domain.sports.Sports;
+import com.umc.coec.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
