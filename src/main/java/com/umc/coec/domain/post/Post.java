@@ -3,17 +3,24 @@ package com.umc.coec.domain.post;
 import com.umc.coec.domain.enums.Division;
 import com.umc.coec.domain.enums.Gender;
 import com.umc.coec.domain.enums.Status;
+import com.umc.coec.domain.interest.Interest;
+import com.umc.coec.domain.join_post.JoinPost;
 import com.umc.coec.domain.location.Location;
+import com.umc.coec.domain.purpose.Purpose;
+import com.umc.coec.domain.sports.Sports;
+import com.umc.coec.domain.time.Time;
 import com.umc.coec.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Comment;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -23,17 +30,22 @@ import java.util.ArrayList;
 public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private long postId;
+    private Long id;
 
     @Enumerated(EnumType.STRING)
-    private Division division;
-
-    @Enumerated(EnumType.STRING)
-    private Status status;
+    private Status status=Status.ACTIVE;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+
+    @Comment("등록 글 구분:  파트너매칭/ 멘토 /멘티")
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Division division;
+
+
+    @Comment("모집글 등록한 사람")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private User user;
@@ -42,50 +54,46 @@ public class Post {
     @JoinColumn(name = "sportsId")
     private Sports sports;
 
+    @Comment("시작 날짜")
     @Column(nullable = false)
     private LocalDate startDate;
 
+
+    @ Comment("종료 날짜")
     private LocalDate endDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "locationId")
     private Location location;
 
+    @Comment("구하는 사람 수")
     @Column(nullable = false)
-    private int memberCount;
+    private int headCount;
 
     private String title;
 
     @Column(length = 1000)
     private String contents;
 
+    @Comment( "원하는 나이대")
     @Column(nullable = false)
     private int ageWanted;
 
+    @Comment("원하는 성별")
     @Enumerated(EnumType.STRING)
     private Gender genderWanted;
 
-    @OneToMany
-    @JoinColumn(name = postId)
-    private List<PostJoin> postJoins = new ArrayList<>();
+    @OneToMany(fetch= FetchType.LAZY, mappedBy = "post")
+    private List<JoinPost> joinPosts = new ArrayList<>();
 
-    @OneToMany
-    @JoinColumn(name = postId)
+    @OneToMany(fetch= FetchType.LAZY, mappedBy = "post")
     private List<Purpose> purposes = new ArrayList<>();
 
-    @OneToMany
-    @JoinColumn(name = postId)
-    private List<SportsTime> sportsTimes = new ArrayList<>();
+    @OneToMany(fetch= FetchType.LAZY, mappedBy = "post")
+    private List<Time> times = new ArrayList<>();
 
-    @OneToMany
-    @JoinColumn(name = postId)
+    @OneToMany(fetch= FetchType.LAZY, mappedBy = "post")
     private List<Interest> interests = new ArrayList<>();
 
-    @OneToMany
-    @JoinColumn(name = postId)
-    private List<ChatRoom> chatRooms = new ArrayList<>();
 
-    @OneToMany
-    @JoinColumn(name = postId)
-    private List<Report> reports = new ArrayList<>();
 }

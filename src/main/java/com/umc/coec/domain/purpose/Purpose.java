@@ -1,6 +1,7 @@
 package com.umc.coec.domain.purpose;
 
 import com.umc.coec.domain.enums.Status;
+import com.umc.coec.domain.post.Post;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,20 +19,18 @@ public class Purpose {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private long purposeId;
+    private Long id;
 
-    @Column(nullable = false)
     private LocalDateTime createdAt;
-    @Column(nullable = false)
     private LocalDateTime updatedAt;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private Status status=Status.ACTIVE;
 
     @Column(nullable = false)
     private String contents;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "postId")
     private Post post;
 

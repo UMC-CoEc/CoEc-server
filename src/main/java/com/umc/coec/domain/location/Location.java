@@ -19,10 +19,10 @@ public class Location {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private long locationId;
+    private Long id;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private Status status=Status.ACTIVE;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

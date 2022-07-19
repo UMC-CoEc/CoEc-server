@@ -1,4 +1,4 @@
-package com.umc.coec.domain.interest;
+package com.umc.coec.domain.join_post;
 
 import com.umc.coec.domain.enums.Status;
 import com.umc.coec.domain.post.Post;
@@ -7,9 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Comment;
 
 import javax.persistence.*;
-import java.net.ServerSocket;
 import java.time.LocalDateTime;
 
 @Data
@@ -17,15 +17,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table( //유저 한명이 한 글에 대해 관심을 한번만 누를 수 있도록 제한을 걸어줌
+@Table( //신청자는 한 글에 대해 한번만 신청이 가능하도록 제한
             uniqueConstraints = {
                         @UniqueConstraint(
-                                    name="interest_uk",
+                                    name="join_post_uk",
                                     columnNames = {"postId","userId"}
                         )
             }
 )
-public class Interest {
+public class JoinPost {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -35,14 +35,20 @@ public class Interest {
     private LocalDateTime updatedAt;
 
     @Enumerated(EnumType.STRING)
-    private Status status= Status.ACTIVE;
+    private Status status=Status.ACTIVE;
 
+    @Comment("등록 글")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "postId")
     private Post post;
 
+    @Comment("신청자")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private User user;
+
+    @Comment("글 등록자에게 하고싶은 말")
+    @Column(nullable = false)
+    private String comment;
 
 }

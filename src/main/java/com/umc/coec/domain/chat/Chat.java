@@ -1,6 +1,6 @@
 package com.umc.coec.domain.chat;
 
-import com.umc.coec.domain.chatroom.ChatRoom;
+import com.umc.coec.domain.chat_room.ChatRoom;
 import com.umc.coec.domain.enums.Status;
 import com.umc.coec.domain.user.User;
 import lombok.AllArgsConstructor;
@@ -20,19 +20,19 @@ public class Chat {
 
       @GeneratedValue(strategy = GenerationType.IDENTITY)
       @Id
-      private long id;
+      private Long id;
 
       private LocalDateTime createdAt;
       private LocalDateTime updatedAt;
 
-      private Status status;
+      private Status status=Status.ACTIVE;
 
       @JoinColumn(name = "chatRoomId")
-      @ManyToOne
+      @ManyToOne(fetch = FetchType.EAGER)
       private ChatRoom chatRoom;
 
       @JoinColumn(name="userId")
-      @ManyToOne
+      @ManyToOne(fetch = FetchType.EAGER)
       private User user;
 
       @Column(length = 1000)

@@ -2,6 +2,7 @@ package com.umc.coec.domain.report;
 
 import com.umc.coec.domain.enums.Category;
 import com.umc.coec.domain.enums.Status;
+import com.umc.coec.domain.post.Post;
 import com.umc.coec.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,19 +21,19 @@ public class Report {
 
       @GeneratedValue(strategy = GenerationType.IDENTITY)
       @Id
-      private long id;
+      private Long id;
 
-      private Status status;
+      private Status status=Status.ACTIVE;
 
       private LocalDateTime createdAt;
       private LocalDateTime updatedAt;
 
       @JoinColumn(name="userId")
-      @ManyToOne
+      @ManyToOne(fetch = FetchType.EAGER)
       private User user;
 
       @JoinColumn(name="postId")
-      @ManyToOne
+      @ManyToOne(fetch = FetchType.EAGER)
       private Post post;
 
       @Enumerated(EnumType.STRING)
