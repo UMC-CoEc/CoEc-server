@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @Entity
+//@Table(name = "time_table") //h2 db의 예약어로 Time이 있기 때문에 h2 사용할때는 이 어노테이션 활성화
 public class Time {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
