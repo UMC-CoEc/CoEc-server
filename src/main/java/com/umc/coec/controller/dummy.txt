@@ -1,1 +1,0 @@
-api 도메인에 대한 controller
