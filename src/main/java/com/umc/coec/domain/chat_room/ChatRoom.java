@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @Table( //등록자 - 신청자 사이에 채팅방은 하나만 가능
             uniqueConstraints = {
                         @UniqueConstraint(
-                                    name="interest_uk",
+                                    name="chat_room_uk",
                                     columnNames = {"postUserId","joinUserId"}
                         )
             }

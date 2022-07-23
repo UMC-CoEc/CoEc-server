@@ -39,7 +39,7 @@ public class Post {
     private LocalDateTime updatedAt;
 
 
-    @Comment("등록 글 구분:  파트너매칭/ 멘토 /멘티")
+    @Comment("등록 글 구분: 파트너 매칭/ 멘토 /멘티")
     @Column
     @Enumerated(EnumType.STRING)
     private Division division;
@@ -59,7 +59,7 @@ public class Post {
     private LocalDate startDate;
 
 
-    @ Comment("종료 날짜")
+    @Comment("종료 날짜")
     private LocalDate endDate;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
@@ -75,7 +75,7 @@ public class Post {
     @Column(length = 1000)
     private String contents;
 
-    @Comment( "원하는 나이대")
+    @Comment("원하는 나이대")
     @Column(nullable = false)
     private int ageWanted;
 
