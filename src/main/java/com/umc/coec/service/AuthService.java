@@ -3,7 +3,9 @@ package com.umc.coec.service;
 import com.umc.coec.domain.enums.RoleType;
 import com.umc.coec.domain.user.User;
 import com.umc.coec.domain.user.UserRepository;
+import com.umc.coec.dto.auth.EmailDupCheckDto;
 import com.umc.coec.dto.auth.JoinDto;
+import com.umc.coec.dto.auth.NicknameDupCheckDto;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,4 +42,13 @@ public class AuthService {
       }
 
 
+      public boolean isEmailAvailable(EmailDupCheckDto emailDto) {
+            String email = emailDto.getEmail();
+            return userRepository.findByEmail(email).isPresent();
+      }
+
+      public boolean isNicknameAvailable(NicknameDupCheckDto nicknameDto) {
+            String nickname = nicknameDto.getNickname();
+            return userRepository.findByNickname(nickname).isPresent();
+      }
 }
